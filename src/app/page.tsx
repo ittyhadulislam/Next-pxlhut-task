@@ -8,6 +8,8 @@ import { z } from "zod";
 import { formSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setShowDetails } from "@/lib/features/showData/showDataSlice";
 
 const steps = [
   {
@@ -31,8 +33,8 @@ const steps = [
 type Inputs = z.infer<typeof formSchema>;
 
 export default function Home() {
-
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -52,6 +54,7 @@ export default function Home() {
 
   const submitForm: SubmitHandler<Inputs> = (data) => {
     console.log(data);
+    dispatch(setShowDetails({ key: "getData", value: data }));
     router.push("/showData");
   };
 
