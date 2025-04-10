@@ -13,6 +13,8 @@ interface Props {
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   submitForm: (data: any) => void;
+  next: () => void;
+  prev: () => void;
 }
 
 const MultiStepNavigation: React.FC<Props> = ({
@@ -21,6 +23,8 @@ const MultiStepNavigation: React.FC<Props> = ({
   currentStep,
   setCurrentStep = () => {},
   submitForm = () => {},
+  next = () => {},
+  prev = () => {},
 }) => {
   const { handleSubmit } = useForm();
   return (
@@ -74,7 +78,8 @@ const MultiStepNavigation: React.FC<Props> = ({
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
             }`}
             type="button"
-            onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
+            // onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
+            onClick={prev}
             disabled={currentStep === 0}
           >
             Previous
@@ -94,9 +99,11 @@ const MultiStepNavigation: React.FC<Props> = ({
               <button
                 className="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700 cursor-pointer"
                 type="button"
-                onClick={() =>
-                  setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1))
-                }
+                // onClick={() =>
+                //   setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1))
+                // }
+                // onClick={next}
+                onClick={handleSubmit(() => next())}
               >
                 Next
               </button>
