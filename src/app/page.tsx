@@ -54,7 +54,7 @@ export default function Home() {
 
   const submitForm: SubmitHandler<Inputs> = (data) => {
     console.log(data);
-    dispatch(setShowDetails({ key: "getData", value: data }));
+    dispatch(setShowDetails({ key: "getData", value: { ...data, zipCode: data.zipCode.toString() } }));
     router.push("/showData");
   };
 
