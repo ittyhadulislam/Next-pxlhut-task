@@ -86,7 +86,6 @@ export default function Home() {
           <MultiStepNavigation
             steps={steps}
             currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
             submitForm={handleSubmit(submitForm as SubmitHandler<Inputs>)}
             next={next}
             prev={prev}

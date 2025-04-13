@@ -2,10 +2,23 @@
 
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 
-const showData = () => {
+const ShowData = () => {
   const router = useRouter();
-  const { getData } = useSelector((state: any) => state.showDetails);
+  const { getData } = useSelector((state: RootState) => state.showDetails) as {
+    getData: {
+      fullName: string;
+      email: string;
+      phoneNo: string;
+      streetAddress: string;
+      city: string;
+      zipCode: string;
+      userName: string;
+      password: string;
+    } | null;
+  };
+  
   console.log(getData);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -14,7 +27,7 @@ const showData = () => {
           Thanks for Submission
         </h1>
         <p className="text-gray-600 mb-6">
-          We've received your information successfully.
+          We&#39;ve received your information successfully.
         </p>
         {getData ? (
           <div className="text-left mb-4">
@@ -48,4 +61,4 @@ const showData = () => {
   );
 };
 
-export default showData;
+export default ShowData;

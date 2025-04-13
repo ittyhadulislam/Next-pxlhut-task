@@ -1,7 +1,14 @@
 "use client";
 
-import React, { use, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import React from "react";
+import { useForm } from "react-hook-form";
+
+// type FormData = {
+//   fullName: string;
+//   email: string;
+//   phone: string;
+//   // Add all the fields from your form here
+// };
 
 interface Props {
   children: React.ReactNode;
@@ -11,8 +18,8 @@ interface Props {
     fields?: string[];
   }>;
   currentStep: number;
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  submitForm: (data: any) => void;
+  // submitForm: (data: FormData) => void;
+  submitForm: (e?: React.BaseSyntheticEvent) => Promise<void>;
   next: () => void;
   prev: () => void;
 }
@@ -21,7 +28,6 @@ const MultiStepNavigation: React.FC<Props> = ({
   children,
   steps = [],
   currentStep,
-  setCurrentStep = () => {},
   submitForm = () => {},
   next = () => {},
   prev = () => {},
@@ -31,7 +37,7 @@ const MultiStepNavigation: React.FC<Props> = ({
     <div>
       <form
         className="absolute inset-0 flex flex-col justify-between p-24"
-        onSubmit={handleSubmit(submitForm)}
+        onSubmit={submitForm}
       >
         <nav aria-label="Progress">
           <ol
